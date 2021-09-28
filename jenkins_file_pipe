@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('CHECKOUT') {
+            steps {
+                echo 'Checkout'
+            }
+        }
+        stage('BUILD') {
+            steps {
+                echo 'Build'
+            }
+        }
+        stage('CREATE ARTIFACT') {
+            steps {
+                echo 'Create artifact'
+            }
+        }
+        stage('DEPLOY') {
+            steps {
+                echo 'Deploy'
+            }
+        }
+    }
+}
