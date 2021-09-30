@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('CHECKOUT') {
             steps {
-                sh 'ssh ubuntu@52.10.231.156 \'lscpu\''
                 echo 'Checkout'
             }
         }
