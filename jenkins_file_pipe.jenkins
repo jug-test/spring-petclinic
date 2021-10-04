@@ -9,13 +9,14 @@ pipeline {
         }
         stage('BUILD') {
             steps {
-                sh './mvnw package:$BUILD_NUMBER'
+                sh './mvnw package'
                 echo 'Build'
             }
         }
         stage('CREATE ARTIFACT') {
             steps {
                 echo 'Create artifact'
+                sh 'docker build -t /var/lib/jenkins/workspace/mp_main/target/*.jar:$BUILD_NUMBER .'
             }
         }
         stage('DEPLOY') {
