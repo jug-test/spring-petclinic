@@ -16,7 +16,7 @@ pipeline {
         stage('CREATE ARTIFACT') {
             steps {
                 echo 'Create artifact'
-                sh 'docker build -t /var/lib/jenkins/workspace/mp_main/target/*.jar:$BUILD_NUMBER .'
+                sh 'docker build -t Dockerfile:$BUILD_NUMBER .'
             }
         }
         stage('DEPLOY') {
