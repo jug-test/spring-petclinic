@@ -1,5 +1,4 @@
-FROM openjdk:8-jre-alpine
-WORKDIR /app
-COPY ./target/*.jar .
-RUN java -jar spring-petclinic-2.5.0-SNAPSHOT*.jar
-ENTRYPOINT ["java", "-jar", "spring-petclinic-2.5.0-SNAPSHOT.jar"]
+FROM openjdk:8-jdk-alpine
+ARG JAR_FILE=./*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
