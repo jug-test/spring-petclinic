@@ -10,7 +10,6 @@ pipeline {
         stage('BUILD') {
             steps {
                 sh './mvnw package'
-                sh 'cat *.jar > spring_petclinic:$BUILD_NUMBER'
                 echo 'Build'
             }
         }
