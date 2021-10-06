@@ -16,7 +16,7 @@ pipeline {
         stage('CREATE ARTIFACT') {
             steps {
                 echo 'Create artifact'
-                sh 'docker build -t spring .'
+                sh 'docker build -t spring:$BUILD_NUMBER .'
             }
         }
         stage('DEPLOY') {
