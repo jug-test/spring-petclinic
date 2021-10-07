@@ -27,7 +27,7 @@ pipeline {
         stage("Push image to ECR") {
             steps {
                 script {
-                    docker.withRegistry('https://140263619205.dkr.ecr.us-west-2.amazonaws.com', 'ecr:us-west-2:latest') {
+                    docker.withRegistry('https://140263619205.dkr.ecr.us-west-2.amazonaws.com', 'ecr:us-west-2:jenkins') {
                         docker.image('140263619205.dkr.ecr.us-west-2.amazonaws.com/juger' + ':$TAG').push()
                     }
                 }
