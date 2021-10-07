@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    
+    environment {
+        TAG = "$BRANCH_NAME"+"."+"$BUILD_NUMBER"
+            
+    }
 
     stages {
         stage('CHECKOUT') {
@@ -19,10 +24,14 @@ pipeline {
                 sh 'docker build -t spring:$BUILD_NUMBER .'
             }
         }
-        stage('DEPLOY') {
+        stage("Push image to ECR") {
             steps {
-                echo 'Deploy'
+                script {
+                    docker.withRegistry('https://140263619205.dkr.ecr.us-west-2.amazonaws.com', 'ecr:us-west-2:latest') {
+                        docker.image('140263619205.dkr.ecr.us-west-2.amazonaws.com/juger' + ':$TAG').push()
+                    }
+                }
+                sh 'docker image prune -a -f'
             }
         }
-    }
 }
