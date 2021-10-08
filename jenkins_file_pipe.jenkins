@@ -3,6 +3,7 @@ pipeline {
     
     environment {
         TAG = "$BRANCH_NAME"+"."+"$BUILD_NUMBER"
+        registry = "140263619205.dkr.ecr.us-east-2.amazonaws.com/juger"
             
     }
 
@@ -22,13 +23,14 @@ pipeline {
             steps {
                 echo 'Create artifact'
                 sh 'docker build -t spring:$BUILD_NUMBER .'
+                sh 'docker tag spring:$BUILD_NUMBER 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'
             }
         }
         stage("Push image to ECR") {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
                   script {
-                    docker.withRegistry('140263619205.dkr.ecr.us-west-2.amazonaws.com') {
+                    docker.withRegistry('140263619205.dkr.ecr.us-west-2.amazonaws.com, 'ecr:us-west-2:JenUsr') {
                         docker.image('140263619205.dkr.ecr.us-west-2.amazonaws.com/juger' + ':$TAG').push()
                     }
                   } 
