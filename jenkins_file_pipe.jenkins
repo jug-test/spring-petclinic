@@ -22,7 +22,9 @@ pipeline {
             steps {
                 echo 'Create artifact'
                 script {
-                 dockerImage = docker.build registry
+                 /*dockerImage = docker.build registry*/
+                 sh 'docker build -t petclinic:$BUILD_NUMBER .'
+                 sh 'docker tag petclinic:$BUILD_NUMBER 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'
         }
             }
         }
