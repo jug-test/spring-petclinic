@@ -25,7 +25,7 @@ pipeline {
                  /*dockerImage = docker.build registry*/
                  /*sh 'docker build -t petclinic:$BUILD_NUMBER .'*/
                  sh 'docker build -t petclinic .'
-                 sh 'docker tag petclinic:$BUILD_NUMBER 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'
+                 sh 'docker tag petclinic 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'
         }
             }
         }
