@@ -1,0 +1,10 @@
+---
+#- name: tasks file for copy
+
+#  tasks:
+
+- name: copy container
+  shell: |
+    docker save petclinic:latest > $HOME/petclinicX.tar
+    scp petclinicX.tar ubuntu@"{{ addr }}":/$HOME
+
