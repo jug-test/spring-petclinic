@@ -31,7 +31,8 @@ pipeline {
         }
         stage ('Deploy to simple EC2') {
            steps {
-               ansiblePlaybook credentialsId: 'Deploy_key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'
+               /*ansiblePlaybook credentialsId: 'Deploy_key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'*/
+               sh 'ansible-playbook play1.yml'
            }
         }
         stage('PUSH') {
