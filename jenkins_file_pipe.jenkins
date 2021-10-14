@@ -3,6 +3,7 @@ pipeline {
     environment {
         registry = "140263619205.dkr.ecr.us-west-2.amazonaws.com/juger"
         TAG = "$BRANCH_NAME"+"."+"$BUILD_NUMBER"
+        ANSIBLE_PRIVATE_KEY=credentials('Secret_Jenkins')
     }
 
     stages {
@@ -31,8 +32,9 @@ pipeline {
         }
         stage ('Deploy to simple EC2') {
            steps {
-               ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'
+               /*ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'*/
                /*sh 'ansible-playbook play1.yml'*/
+               sh 'ansible-playbook -i inventory/hosts.txt --private-key=$ANSIBLE_PRIVATE_KEY playbooks/play1.yml'
            }
         }
         stage('PUSH') {
