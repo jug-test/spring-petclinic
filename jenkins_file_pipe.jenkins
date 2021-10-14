@@ -1,10 +1,8 @@
 pipeline {
     agent any
-    
     environment {
+        registry = "140263619205.dkr.ecr.us-west-2.amazonaws.com/juger"
         TAG = "$BRANCH_NAME"+"."+"$BUILD_NUMBER"
-        /*registry = "140263619205.dkr.ecr.us-east-2.amazonaws.com/juger"*/
-            
     }
 
     stages {
@@ -15,28 +13,30 @@ pipeline {
         }
         stage('BUILD') {
             steps {
-                sh './mvnw package'
                 echo 'Build'
+                sh './mvnw package' 
+                /*sh 'mv /var/lib/jenkins/workspace/mp_Test/target/spring-petclinic-2.5.0-SNAPSHOT.jar /var/lib/jenkins/workspace/mp_Test/target/spring-petclinic:$BUILD_NUMBER'*/
             }
         }
         stage('CREATE ARTIFACT') {
             steps {
                 echo 'Create artifact'
-                sh 'docker build -t spring:$BUILD_NUMBER .'
-                sh 'docker tag spring:$BUILD_NUMBER 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'
+                script {
+                 /*dockerImage = docker.build registry*/
+                 /*sh 'docker build -t petclinic:$BUILD_NUMBER .'*/
+                 sh 'docker build -t petclinic .'
+                 sh 'docker tag petclinic 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'
+        }
             }
         }
-        stage("Push image to ECR") {
+        stage('PUSH') {
             steps {
-                /*withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){*/
-                  script {
-                    docker.withRegistry('https://140263619205.dkr.ecr.us-west-2.amazonaws.com, 'ecr:us-west-2:JenUsr') {
-                        docker.image('140263619205.dkr.ecr.us-west-2.amazonaws.com/juger' + ':$TAG').push()
-                    }
-                  /*} */
-                }
-                sh 'docker image prune -a -f'
+                echo 'Deploy'
+                script {
+                sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 140263619205.dkr.ecr.us-west-2.amazonaws.com'
+                sh 'docker push 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'
+         }
             }
         }
-     }
+    }
 }
