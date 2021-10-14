@@ -14,7 +14,7 @@ pipeline {
         stage('BUILD') {
             steps {
                 echo 'Build'
-                sh './mvnw package' 
+                sh './mvn package -Dcheckstyle.skip' 
                 /*sh 'mv /var/lib/jenkins/workspace/mp_Test/target/spring-petclinic-2.5.0-SNAPSHOT.jar /var/lib/jenkins/workspace/mp_Test/target/spring-petclinic:$BUILD_NUMBER'*/
             }
         }
