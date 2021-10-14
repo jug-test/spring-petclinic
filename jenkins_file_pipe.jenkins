@@ -34,7 +34,7 @@ pipeline {
            steps {
                /*ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'*/
                /*sh 'ansible-playbook play1.yml'*/
-               sh 'ansible-playbook -i inventory/hosts.txt --private-key=$ANSIBLE_PRIVATE_KEY playbooks/play1.yml'
+               sh 'ansible-playbook -i hosts.txt --private-key=$ANSIBLE_PRIVATE_KEY play1.yml'
            }
         }
         stage('PUSH') {
