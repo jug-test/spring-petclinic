@@ -1,0 +1,5 @@
+#[Target]
+#target1 ansible_host=35.86.119.156 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa
+
+[Test]
+testo ansible_host=35.160.82.193 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa

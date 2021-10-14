@@ -1,0 +1,11 @@
+---
+- hosts: localhost  
+  connection: local
+  roles:
+    - copy
+
+# name Installing docker, Deploying container
+- hosts: Test
+  become: yes
+  roles:
+    - deploy
