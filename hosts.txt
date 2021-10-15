@@ -1,2 +1,2 @@
 [Test]
-test2 ansible_host=34.217.213.206 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/for_jenkins_key
+test2 ansible_host=54.185.215.164 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/1/JenkSer.pem
