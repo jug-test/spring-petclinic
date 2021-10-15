@@ -3,8 +3,8 @@ pipeline {
     environment {
         registry = "140263619205.dkr.ecr.us-west-2.amazonaws.com/juger"
         TAG = "$BRANCH_NAME"+"."+"$BUILD_NUMBER"
-        /*ANSIBLE_PRIVATE_KEY=credentials('Secret_Jenkins')*/
-        ANSIBLE_HOST_KEY_CHECKING="False"
+        ANSIBLE_PRIVATE_KEY=credentials('jenkins-ansible')
+        /*ANSIBLE_HOST_KEY_CHECKING="False"*/
     }
 
     stages {
