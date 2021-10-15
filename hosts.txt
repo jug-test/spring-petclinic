@@ -1,2 +1,2 @@
 [Test]
-test2 ansible_host=54.185.215.164 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/1/JenkSer.pem host_key_checking=false ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+test2 ansible_host=54.185.215.164 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa host_key_checking=false ansible_ssh_common_args='-o StrictHostKeyChecking=no'
