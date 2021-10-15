@@ -5,6 +5,6 @@
 
 - name: copy container
   shell: |
-    docker save petclinic:latest > $HOME/petclinicX.tar
+    docker save petclinic:latest > /home/ubuntu/petclinicX.tar
     scp petclinicX.tar ubuntu@"{{ addr }}":/$HOME
 
