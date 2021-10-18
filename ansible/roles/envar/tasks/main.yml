@@ -1,0 +1,67 @@
+---
+# tasks file for envar---
+
+- name: Install pip
+  apt: name=python-pip state=latest
+
+- name: Install aptitude using apt
+  apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+- name: Install required system packages
+  apt: name={{ item }} state=latest update_cache=yes 
+  loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv',
+'python3-setuptools']
+
+- name: Add Docker GPG apt Key
+  apt_key: 
+    url: https://download.docker.com/linux/ubuntu/gpg 
+    state: present
+
+- name: Add Docker Repository
+  apt_repository: 
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable 
+    state: present
+
+- name: Update apt and install Docker-ce
+  apt: update_cache=yes name=docker-ce state=latest
+
+- name: Install Docker Module for Python
+  pip: 
+    name: docker
+
+- name: Create docker group
+  group:
+    name: docker
+    state: present
+  become: yes
+
+- name: Add user to the docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+  with_items: "{{ non_root_docker_users }}"
+  become: yes
+
+- name: Install Java
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - openjdk-8-jdk
+
+- name: ensure the jenkins apt repository key is installed
+  apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
+  become: yes
+
+- name: ensure the repository is configured
+  apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+  become: yes
+
+- name: ensure jenkins is installed
+  apt: name=jenkins update_cache=yes
+  become: yes
+
+- name: ensure jenkins is running
+  service: name=jenkins state=started

@@ -1,0 +1,9 @@
+#[Target]
+#target1 ansible_host=35.86.119.156 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa
+
+[Test]
+#test ansible_host=34.217.213.206 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa
+test2 ansible_host=34.217.131.84 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa
+
+[Env]
+env1 ansible_host=35.85.222.168 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_rsa

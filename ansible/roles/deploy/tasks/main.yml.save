@@ -1,0 +1,75 @@
+---
+# tasks file for
+
+
+#- name: Installing docker, Deploying container
+#  hosts: Test
+#  become: yes
+
+
+- name: Install pip
+  apt: name=python-pip state=latest
+
+- name: Install aptitude using apt
+  apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+- name: Install required system packages
+  apt: name={{ item }} state=latest update_cache=yes
+  loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv',
+'python3-setuptools']
+
+- name: Add Docker GPG apt Key
+   apt_key: 
+     url: https://download.docker.com/linux/ubuntu/gpg state: present
+
+- name: Add Docker Repository
+  apt_repository: 
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable state: present
+
+- name: Update apt and install Docker-ce
+  apt: update_cache=yes name=docker-ce state=latest
+
+- name: Install Docker Module for Python
+  pip: 
+    name: docker
+
+- name: Create docker group
+  group:
+    name: docker
+    state: present
+  become: yes
+
+- name: Add user to the docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+  with_items: "{{ non_root_docker_users }}"
+  become: yes
+
+- name: Docker run
+  docker_image:
+    name: petclinic
+    load_path: /home/ubuntu/petclinicX.tar
+    state: present
+
+- name: Docker Images List
+  shell: "docker images"
+  register: "remote_output"
+
+- debug: var=remote_output.stdout_lines
+
+- name: Deploy
+  docker_container:
+    name: petclinic
+    image: petclinic
+    state: started
+    ports:
+     - "8080:8080"
+#    shell: "docker run -d -p 8080:8080 petclinic"   - it's works
+
+- name: List running containers
+  shell: "docker ps"
+  register: "running"
+
+- debug: var=running.stdout_lines

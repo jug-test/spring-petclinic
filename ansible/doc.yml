@@ -1,0 +1,23 @@
+--- 
+
+- name: Docker sudo add
+  hosts: target1
+  become: yes
+  vars:
+    non_root_docker_users: ubuntu
+
+  tasks:
+
+   - name: Create docker group
+     group:
+       name: docker
+       state: present
+     become: yes
+
+   - name: Add user to the docker group
+     user:
+       name: "{{ item }}"
+       groups: docker
+       append: yes
+     with_items: "{{ non_root_docker_users }}"
+     become: yes

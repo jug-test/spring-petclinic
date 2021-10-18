@@ -1,0 +1,54 @@
+---
+
+- name: check
+  hosts: localhost
+  connection: local 
+
+  tasks: 
+
+  - name: check
+    shell: "docker images"
+    register: "output"
+
+  - debug: var=output.stdout_lines
+
+#  - name: docker run
+#    shell: "docker run -d -p 8080:8080 518d9880785c"
+
+  - name: copy container
+    shell: "docker save petclinic:latest > petclinicX.tar"
+    shell: "scp petclinicX.tar ubuntu@35.86.119.156:/home/ubuntu"
+
+- name: Docker run
+  hosts: target1
+  become: yes
+
+  tasks:
+
+  - name: Docker run
+    docker_image:
+      name: petclinic
+      load_path: /home/ubuntu/petclinicX.tar
+      state: present
+#      source: load
+
+  - name: Docker Images List  
+    shell: "docker images"
+    register: "remote_output"
+
+  - debug: var=remote_output.stdout_lines
+   
+  - name: Deploy
+    docker_container: 
+      name: petclinic
+      image: petclinic
+      state: started
+      ports:
+       - "8080:8080"
+#    shell: "docker run -d -p 8080:8080 petclinic"   - it's works
+    
+  - name: List running containers
+    shell: "docker ps"
+    register: "running"
+
+  - debug: var=running.stdout_lines

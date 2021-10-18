@@ -1,0 +1,13 @@
+---
+- name: Copy Container
+  hosts: localhost
+  connection: local
+  vars:
+    test: 52.11.72.55
+
+  tasks:
+
+  - name: copy file
+    shell: "docker save petclinic:latest > petclinicX.tar"
+#    shell: scp petclinicX.tar ubuntu@52.11.72.55:/home/ubuntu      ============== Works
+    shell: scp petclinicX.tar ubuntu@"{{ test }}":/$HOME

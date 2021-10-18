@@ -1,0 +1,4 @@
+---
+# vars file for envar
+non_root_docker_users: ubuntu
+
