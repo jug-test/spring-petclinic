@@ -28,7 +28,7 @@ pipeline {
                  /*sh 'docker build -t petclinic:$BUILD_NUMBER .'*/
                  sh 'docker build -t petclinic .'
                  /*sh 'docker tag petclinic 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'*/
-                 sh 'docker tag petclinic:latest public.ecr.aws/i9m7b5b8/petclinic:latest:$TAG'
+                 sh 'docker tag petclinic:latest public.ecr.aws/i9m7b5b8/petclinic:latest'
         }
             }
         }
@@ -49,7 +49,7 @@ pipeline {
                 /*sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 140263619205.dkr.ecr.us-west-2.amazonaws.com'*/
                 sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/i9m7b5b8'
                 /*sh 'docker push 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'*/
-                sh 'docker push public.ecr.aws/i9m7b5b8/petclinic:latest:$TAG'
+                sh 'docker push public.ecr.aws/i9m7b5b8/petclinic:latest'
          }
             }
         }
