@@ -35,9 +35,9 @@ pipeline {
 /*        stage ('Deploy to simple EC2') {
            steps {
               withCredentials([file(credentialsId: 'Secret_Jenkins', variable: 'Secret_Jenkins')]) {
-               /*sh 'ssh -o StrictHostKeyChecking=no '  */
-               /*ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'*/
-               /*sh 'ansible-playbook play1.yml'*/
+               sh 'ssh -o StrictHostKeyChecking=no '  
+               ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'
+               sh 'ansible-playbook play1.yml'
                  sh 'ansible-playbook -i hosts.txt --private-key=$ANSIBLE_PRIVATE_KEY play1.yml'
               }   
            }
