@@ -34,14 +34,14 @@ pipeline {
         }
         /*stage ('Deploy to simple EC2') {
            steps {
-              /*withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secret*/
-               /*sh 'ssh -o StrictHostKeyChecking=no '  */
-               /*ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'*/
-               /*sh 'ansible-playbook play1.yml'*/
-                 /*sh 'ansible-playbook -i hosts.txt --private-key=$ANSIBLE_PRIVATE_KEY play1.yml'*/
+              withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secret
+               sh 'ssh -o StrictHostKeyChecking=no '  
+               ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'
+               sh 'ansible-playbook play1.yml'
+                 sh 'ansible-playbook -i hosts.txt --private-key=$ANSIBLE_PRIVATE_KEY play1.yml'
               }   
-           }
-        */
+           }*/
+        
         stage('PUSH') {
             steps {
                 withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')])
