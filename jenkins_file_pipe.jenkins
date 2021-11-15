@@ -3,7 +3,7 @@ pipeline {
     environment {
         registry = "140263619205.dkr.ecr.us-west-2.amazonaws.com/juger"
         TAG = "$BRANCH_NAME"+"."+"$BUILD_NUMBER"
-        /*ANSIBLE_PRIVATE_KEY=credentials('Secret_Jenkins')*/
+        ANSIBLE_PRIVATE_KEY=credentials('Secret_Jenkins')
         /*ANSIBLE_HOST_KEY_CHECKING="False"*/
     }
 
@@ -32,7 +32,7 @@ pipeline {
         }
             }
         }
-/*        stage ('Deploy to simple EC2') {
+        stage ('Deploy to simple EC2') {
            steps {
               withCredentials([file(credentialsId: 'Secret_Jenkins', variable: 'Secret_Jenkins')]) {
                sh 'ssh -o StrictHostKeyChecking=no '  
@@ -41,7 +41,7 @@ pipeline {
                  sh 'ansible-playbook -i hosts.txt --private-key=$ANSIBLE_PRIVATE_KEY play1.yml'
               }   
            }
-        }*/
+        }
         stage('PUSH') {
             steps {
                 echo 'Deploy'
