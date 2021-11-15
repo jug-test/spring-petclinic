@@ -40,7 +40,7 @@ pipeline {
               withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
                 /*echo 'Deploy'*/
                 /*script {*/
-                sh 'aws ecr describe_repositories'
+                /*sh 'aws ecr describe-repositories'*/
                   /*sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 140263619205.dkr.ecr.us-west-2.amazonaws.com'*/
                 
                 
