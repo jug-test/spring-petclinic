@@ -33,27 +33,19 @@ pipeline {
         }
             }
         }
-        /*stage ('Deploy to simple EC2') {
-           steps {
-              withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secret
-               sh 'ssh -o StrictHostKeyChecking=no '  
-               ansiblePlaybook credentialsId: 'jenkins-ansible', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts.txt', playbook: 'play1.yml'
-               sh 'ansible-playbook play1.yml'
-                 sh 'ansible-playbook -i hosts.txt --private-key=$ANSIBLE_PRIVATE_KEY play1.yml'
-              }   
-           }*/
+        
         
         stage('PUSH') {
             steps {
-                withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
-                  echo 'Deploy'
-                  script {
+              withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
+                echo 'Deploy'
+                script {
                 /*sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 140263619205.dkr.ecr.us-west-2.amazonaws.com'*/
                   sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 140263619205.dkr.ecr.us-west-2.amazonaws.com'
                 /*sh 'aws ecr-public get-login-password --region us-west-2 | docker login --username AWS --password-stdin public.ecr.aws/i9m7b5b8'*/
                 /*sh 'docker push 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'*/
                   sh 'docker push 140263619205.dkr.ecr.us-west-2.amazonaws.com/spring1:latest'
-               }
+              }
             }
         }
     }
