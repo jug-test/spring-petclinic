@@ -3,6 +3,7 @@ pipeline {
     environment {
         registry = "140263619205.dkr.ecr.us-west-2.amazonaws.com/juger"
         TAG = "$BRANCH_NAME"+"."+"$BUILD_NUMBER"
+        AWS_DEFAULT_REGION="us-west-2"
         /*ANSIBLE_PRIVATE_KEY=credentials('ECR')*/
         /*ANSIBLE_HOST_KEY_CHECKING="False"*/
     }
@@ -52,7 +53,7 @@ pipeline {
                 /*sh 'aws ecr-public get-login-password --region us-west-2 | docker login --username AWS --password-stdin public.ecr.aws/i9m7b5b8'*/
                 /*sh 'docker push 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'*/
                   sh 'docker push 140263619205.dkr.ecr.us-west-2.amazonaws.com/spring1:latest'
-         }
+               }
             }
         }
     }
