@@ -44,14 +44,14 @@ pipeline {
         
         stage('PUSH') {
             steps {
-                withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')])
-                echo 'Deploy'
-                script {
+                withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
+                  echo 'Deploy'
+                  script {
                 /*sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 140263619205.dkr.ecr.us-west-2.amazonaws.com'*/
-                sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 140263619205.dkr.ecr.us-west-2.amazonaws.com'
+                  sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 140263619205.dkr.ecr.us-west-2.amazonaws.com'
                 /*sh 'aws ecr-public get-login-password --region us-west-2 | docker login --username AWS --password-stdin public.ecr.aws/i9m7b5b8'*/
                 /*sh 'docker push 140263619205.dkr.ecr.us-west-2.amazonaws.com/juger:$TAG'*/
-                sh 'docker push 140263619205.dkr.ecr.us-west-2.amazonaws.com/spring1:latest'
+                  sh 'docker push 140263619205.dkr.ecr.us-west-2.amazonaws.com/spring1:latest'
          }
             }
         }
