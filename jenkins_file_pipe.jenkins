@@ -41,7 +41,7 @@ pipeline {
                  /*sh 'ansible-playbook -i hosts.txt --private-key=$ANSIBLE_PRIVATE_KEY play1.yml'*/
               }   
            }
-        }*/
+        */
         stage('PUSH') {
             steps {
                 withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID', credentialsId: 'JenUsr', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')])
